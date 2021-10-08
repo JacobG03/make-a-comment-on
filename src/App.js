@@ -1,23 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import YouTube from 'react-youtube'
+import { useForm } from 'react-hook-form'
+
+// https://www.youtube.com/watch?v=fHy7K4xIO-g
 
 function App() {
+  const {register, handleSubmit } = useForm();
+  const onSubmit = data => console.log(data)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+      <div className='wrapper'>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input 
+            className='input-field'
+            {...register('query')} 
+          />
+          <input 
+            type='submit'
+            className='submit-btn'
+          />
+        </form>
+      </div>
     </div>
   );
 }
