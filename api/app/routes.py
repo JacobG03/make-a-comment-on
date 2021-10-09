@@ -1,7 +1,8 @@
-from app import app
+from app import app, db
 from flask import request
 import re
 from app.other import getVideoId
+from app.models import Video
 
 
 # Main route
@@ -37,10 +38,19 @@ def video_data():
       'message': 'Link does not contain video id'
     }, 400
   
-  #! query database and return valid data
   
+  video = Video.query.filter_by(videoID=videoID).first()
+  
+  if not video:
+    video = Video(videoID=videoID)
+    video.query_amount = 0
+  
+  video.query_amount += 1
+  db.session.add(video)
+  db.session.commit()
 
   # valid response
   return {
-    'videoId': videoID
+    'videoId': video.videoID,
+    'query_amount': video.query_amount
   }, 200
