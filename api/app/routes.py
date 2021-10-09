@@ -10,7 +10,7 @@ def api():
   }
 
 
-@app.route('/api/{url}')
+@app.route('/api/<url>', methods=['GET', 'POST'])
 def video_data(url):
   print(url)
   return {

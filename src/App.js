@@ -1,13 +1,14 @@
 import './App.css';
-import Youtube from 'react-youtube'
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form'
-import { useState } from 'react';
+import Youtube from 'react-youtube'
+import { VideoContext } from './context/VideoContext';
+
 
 // https://www.youtube.com/watch?v=fHy7K4xIO-g
 
 function App() {
-  const [link, setLink] = useState();
-  console.log(link)
+  const videoContext = useContext(VideoContext);
 
   return (
     <div className='app'>
@@ -16,8 +17,8 @@ function App() {
           <h1>Make a comment on</h1>
         </div>
         <div className='content'>
-          <LinkInput setLink={setLink} />
-          <VideoPlayer link={link} />
+          <LinkInput changeURL={videoContext.changeURL}/>
+          <VideoPlayer URL={videoContext.url} />
         </div>
       </div>
     </div>
@@ -27,7 +28,7 @@ function App() {
 
 function LinkInput(props) {
   const {register, handleSubmit } = useForm();
-  const onSubmit = data => props.setLink(data.link);
+  const onSubmit = data => props.changeURL(data.link);
 
   return (
     <form
