@@ -1,5 +1,10 @@
 :root {
-  --work-in-progess: 'true'
+  --work-in-progess: 'true';
+  --color1: #25274D;
+  --color2: #464866;
+  --color3: #AAABB8;
+  --color4: #2E9CCA;
+  --color5: #29648A;
 }
 
 html {
@@ -14,6 +19,8 @@ body {
   width: 100vw;
   min-height: 100vh;
   min-height: -webkit-fill-available;
+  background-color: var(--color1);
+  color: var(--color3);
 }
 
 .wrapper {
@@ -44,6 +51,30 @@ a, a:hover, a:visited, a:active {
 input {
   border: none;
   outline: none;
+}
+
+/** General Classess **/
+
+
+/*? Most likely need to seperate code ?*/
+
+.top {
+  width: 100%;
+  height: fit-content;
+  padding: 10px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  width: 100%;
+  height: fit-content;
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
 }
 
 
