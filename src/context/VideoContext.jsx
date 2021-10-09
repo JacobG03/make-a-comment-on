@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useEffect,
 } from "react";
-
+import postData from "../services/PostData";
 
 const VideoContext = createContext();
 
@@ -13,18 +13,17 @@ const VideoContextProvider = ({ children }) => {
   const [URL, setURL] = useState(null)
   const [videoData, setVideoData] = useState(null)
   const [comments, setComments] = useState(null)
-  console.log('1. URL:')
-  console.log(URL)
-
-  console.log('2. Video Data:')
-  console.log(videoData)
-  
-  console.log('3. Comments:')
-  console.log(comments)
 
   // On url change update video data
   useEffect(() => {
-    
+    if (URL) {
+      postData('api/video-data', {'url': URL})
+      .then(result => {
+        if(result.success) {
+          setVideoData(result['data'])
+        }
+      })
+    }
   }, [URL])
 
   const changeURL = useCallback(url => {
@@ -34,7 +33,8 @@ const VideoContextProvider = ({ children }) => {
   const contextValue = useMemo(() => ({
     URL,
     changeURL,
-  }), [URL, changeURL])
+    videoData
+  }), [URL, changeURL, videoData])
 
   return (
     <VideoContext.Provider value={contextValue}>

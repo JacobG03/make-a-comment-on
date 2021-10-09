@@ -18,7 +18,7 @@ function App() {
         </div>
         <div className='content'>
           <LinkInput changeURL={videoContext.changeURL}/>
-          <VideoPlayer URL={videoContext.url} />
+          <VideoPlayer videoData={videoContext.videoData} />
         </div>
       </div>
     </div>
@@ -49,9 +49,12 @@ function LinkInput(props) {
 
 
 function VideoPlayer(props) {
+  console.log(props.videoData)
+  const videoID = props.videoData === null ? null: props.videoData.videoID
+  console.log(videoID)
   return (
     <div className='video'>
-      <Youtube videoId='fHy7K4xIO-g' />
+      {videoID ? <Youtube videoId={videoID} />: null}
     </div>
   )
 }

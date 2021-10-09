@@ -21,22 +21,25 @@ def video_data():
     url = request.get_json()['url']
   except KeyError:
     return {
+      'success': False,
       'message': 'url key is missing'
-    }, 400
+    }, 200
   
   # validate url
   url_valid = re.search('^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+', url)
   if not url_valid:
     return {
+      'success': False,
       'message': 'Invalid URL'
-    }, 400
+    }, 200
 
   # validate ID
   videoID = getVideoId(url)
   if videoID == None:
     return {
+      'success': False,
       'message': 'Link does not contain video id'
-    }, 400
+    }, 200
   
   
   video = Video.query.filter_by(videoID=videoID).first()
@@ -51,6 +54,9 @@ def video_data():
 
   # valid response
   return {
-    'videoId': video.videoID,
-    'query_amount': video.query_amount
+    'success': True,
+    'data': {
+      'videoID': video.videoID,
+      'query_amount': video.query_amount
+    }
   }, 200
