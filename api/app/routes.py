@@ -5,10 +5,11 @@ from app.other import getVideoId
 from app.models import Comment, Video
 
 
+print(app.static_folder)
 @app.route("/")
 def serve():
-    """serves React App"""
-    return send_from_directory(app.static_folder, "index.html")
+    #serves React App
+    return app.send_static_file('index.html')
 
 # Main route
 @app.route('/api', methods=['GET', 'POST'])
