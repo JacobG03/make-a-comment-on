@@ -8,7 +8,7 @@ from app.models import Comment, Video
 # Main route
 @app.route('/api', methods=['GET', 'POST'])
 def api():
-  domain = 'localhost:5000/'
+  domain = 'https://make-a-comment-on.herokuapp.com/'
   return {
     'video_data_url': domain + 'api/video',
     'comments_url': domain + 'api/comments'

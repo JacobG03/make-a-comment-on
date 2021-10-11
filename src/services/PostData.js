@@ -1,5 +1,5 @@
 async function postData(url = '', data = {}) {
-  const domain = 'http://localhost:5000/'
+  const domain = 'https://make-a-comment-on.herokuapp.com/'
   // Default options are marked with *
   const response = await fetch(domain + url, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
