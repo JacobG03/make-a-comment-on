@@ -57,6 +57,7 @@ def video_data():
 
   for comment in video.comments:
     comments.append({
+      'id': comment.id,
       'username': comment.username,
       'body': comment.body,
       'date': comment.date

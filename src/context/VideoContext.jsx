@@ -24,9 +24,9 @@ const VideoContextProvider = ({ children }) => {
       })
     }
   }, [URL])
-  console.log(videoData)
   
   const changeURL = useCallback(url => {
+    setVideoData(null)
     setURL(url)
   }, [])
 

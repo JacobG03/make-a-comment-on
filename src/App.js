@@ -19,10 +19,58 @@ function App() {
         <div className='content'>
           <LinkInput changeURL={videoContext.changeURL}/>
           <VideoPlayer videoData={videoContext.videoData} />
+          <CommentSection videoData={videoContext.videoData} />
         </div>
       </div>
     </div>
   );
+}
+
+
+function CommentSection(props) {
+  const videoData = props.videoData
+
+  if (videoData === null) {
+    return null
+  }
+  return (
+    <div>
+      <MakeComment />
+      <Comments comments={videoData.comments}/>
+    </div>
+  )
+}
+
+
+function MakeComment(props) {
+  return (
+    <div>
+      Make a comment here
+    </div>
+  )
+}
+
+
+function Comments(props) {
+  const comments = props.comments
+  console.log(comments)
+  return (
+    <div>
+      {comments.map(comment => <Comment comment={comment} key={comment.id}/>)}
+    </div>
+  )
+}
+
+
+function Comment(props) {
+  const comment = props.comment
+  return (
+    <div style={{backgroundColor: 'black'}}>
+      <p>{comment.username}</p>
+      <p>{comment.body}</p>
+      <p>{comment.date}</p>
+    </div>
+  )
 }
 
 
