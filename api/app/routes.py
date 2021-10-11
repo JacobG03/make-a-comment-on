@@ -1,17 +1,18 @@
 from app import app, db
-from flask import request
+from flask import request, send_from_directory
 import re
 from app.other import getVideoId
 from app.models import Comment, Video
+import os
 
 
 @app.route('/', methods=['GET'])
 def home():
-    return app.send_static_file('index.html')
+    return send_from_directory(os.path.abspath("../build/static"), 'index.html')
 
 @app.errorhandler(404)
 def not_found(e):
-    return app.send_static_file('index.html')
+    return send_from_directory(os.path.abspath("../build/static"), 'index.html')
 
 
 # Main route
