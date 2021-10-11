@@ -49,9 +49,7 @@ function LinkInput(props) {
 
 
 function VideoPlayer(props) {
-  console.log(props.videoData)
   const videoID = props.videoData === null ? null: props.videoData.videoID
-  console.log(videoID)
   return (
     <div className='video'>
       {videoID ? <Youtube videoId={videoID} />: null}

@@ -10,11 +10,12 @@ from app.models import Video
 def api():
   domain = 'localhost:5000/'
   return {
-    'video_data_url': domain + 'api/video-data'
+    'video_data_url': domain + 'api/video',
+    'comments_url': domain + 'api/comments'
   }
 
 
-@app.post('/api/video-data')
+@app.post('/api/video')
 def video_data():
   # receive url value
   try:
@@ -51,12 +52,24 @@ def video_data():
   video.query_amount += 1
   db.session.add(video)
   db.session.commit()
+  
+  comments = []
+
+  for comment in video.comments:
+    comments.append({
+      'username': comment.username,
+      'body': comment.body,
+      'date': comment.date
+    })
 
   # valid response
   return {
     'success': True,
     'data': {
       'videoID': video.videoID,
-      'query_amount': video.query_amount
+      'query_amount': video.query_amount,
+      'comments': comments
     }
   }, 200
+
+
