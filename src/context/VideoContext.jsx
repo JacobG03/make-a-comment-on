@@ -26,15 +26,35 @@ const VideoContextProvider = ({ children }) => {
   }, [URL])
   
   const changeURL = useCallback(url => {
-    setVideoData(null)
     setURL(url)
   }, [])
+
+  const addComment = useCallback(comment => {
+    if (videoData !== null) {
+      postData('api/comment', {
+        'videoID': videoData.videoID,
+        'comment': comment
+      })
+      .then(result => {
+        if (result.success) {
+          postData('api/video', {'url': URL})
+          .then(result => {
+            if(result.success) {
+              setVideoData(result['data'])
+            }
+          })
+        }
+      })
+    }
+  }, [videoData, URL])
+
 
   const contextValue = useMemo(() => ({
     URL,
     changeURL,
-    videoData
-  }), [URL, changeURL, videoData])
+    videoData,
+    addComment
+  }), [URL, changeURL, videoData, addComment])
 
   return (
     <VideoContext.Provider value={contextValue}>

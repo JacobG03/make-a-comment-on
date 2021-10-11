@@ -2,7 +2,7 @@ from app import app, db
 from flask import request
 import re
 from app.other import getVideoId
-from app.models import Video
+from app.models import Comment, Video
 
 
 # Main route
@@ -74,3 +74,28 @@ def video_data():
   }, 200
 
 
+@app.post('/api/comment')
+def comment():
+  try:
+    data = request.get_json()
+    videoID = data['videoID']
+    comment_data = data['comment']
+    print(videoID)
+  except KeyError:
+    return {
+      'success': False,
+      'message': 'Missing keys: videoID, comment'
+    }
+  
+  comment = Comment(
+    username=comment_data['username'],
+    body=comment_data['body'],
+    video_id=Video.query.filter_by(videoID=videoID).first().id
+  )
+
+  db.session.add(comment)
+  db.session.commit()
+
+  return {
+    'success': True
+  }
