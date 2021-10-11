@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form'
 import Youtube from 'react-youtube'
 import { VideoContext } from './context/VideoContext';
-
+import useWindowDimensions from './hooks/windowDimensions'
 
 // https://www.youtube.com/watch?v=fHy7K4xIO-g
 
@@ -11,16 +11,17 @@ function App() {
   const videoContext = useContext(VideoContext);
 
   return (
-    <div className='app'>
-      <div className='wrapper'>
+    <div className='wrapper'>
+      <div className='header'>
+        <h1>Make a comment on</h1>
+        <span>YouTube videos with blocked comments</span>
+      </div>
+      <div className='content'>
         <div className='top'>
-          <h1>Make a comment on</h1>
-        </div>
-        <div className='content'>
           <LinkInput changeURL={videoContext.changeURL}/>
           <VideoPlayer videoData={videoContext.videoData} />
-          <CommentSection videoData={videoContext.videoData} />
         </div>
+        <CommentSection videoContext={videoContext} />
       </div>
     </div>
   );
@@ -28,14 +29,15 @@ function App() {
 
 
 function CommentSection(props) {
-  const videoData = props.videoData
+  const videoData = props.videoContext.videoData
+  const addComment = props.videoContext.addComment
 
   if (videoData === null) {
     return null
   }
   return (
-    <div>
-      <MakeComment />
+    <div className='comments-section'>
+      <MakeComment addComment={addComment}/>
       <Comments comments={videoData.comments}/>
     </div>
   )
@@ -43,19 +45,39 @@ function CommentSection(props) {
 
 
 function MakeComment(props) {
+  const {register, handleSubmit } = useForm();
+  const onSubmit = data => props.addComment(data);
+
   return (
-    <div>
-      Make a comment here
-    </div>
+    <form
+      className='form2'
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <span>Username:</span>
+      <input  
+        className='input-field'
+        {...register('username', { required: true, maxLength: 64 })} 
+      />
+      <span>Comment:</span>
+      <textarea
+        className='input-area'
+        {...register('body', { required: true, maxLength: 10000 })} 
+      />
+      <input 
+        type='submit'
+        className='submit-btn'
+      />
+    </form>
   )
 }
 
 
 function Comments(props) {
   const comments = props.comments
-  console.log(comments)
+  // Sorts by id descending
+  comments.sort((a, b) => b.id - a.id);
   return (
-    <div>
+    <div className='comments'>
       {comments.map(comment => <Comment comment={comment} key={comment.id}/>)}
     </div>
   )
@@ -65,10 +87,14 @@ function Comments(props) {
 function Comment(props) {
   const comment = props.comment
   return (
-    <div style={{backgroundColor: 'black'}}>
-      <p>{comment.username}</p>
-      <p>{comment.body}</p>
-      <p>{comment.date}</p>
+    <div className='comment'>
+      <div className='comment-top'>
+        <span className='username'>{comment.username}</span>
+        <span>{comment.date}</span>
+      </div>
+      <div className='comment-body'>
+        <span>{comment.body}</span>
+      </div>
     </div>
   )
 }
@@ -80,7 +106,7 @@ function LinkInput(props) {
 
   return (
     <form
-      className='form'
+      className='form1'
       onSubmit={handleSubmit(onSubmit)}
     >
       <input  
@@ -98,9 +124,25 @@ function LinkInput(props) {
 
 function VideoPlayer(props) {
   const videoID = props.videoData === null ? null: props.videoData.videoID
+  const { width } = useWindowDimensions();
+
+  let opts = {}
+
+  if (width < 520) {
+    opts = {
+      width: '320',
+      height: '240'
+    };
+  } else {
+    opts = {
+      width: '480',
+      height: '320'
+    };
+  }
+
   return (
     <div className='video'>
-      {videoID ? <Youtube videoId={videoID} />: null}
+      {videoID ? <Youtube videoId={videoID} opts={opts} />: null}
     </div>
   )
 }

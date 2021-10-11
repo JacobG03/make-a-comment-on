@@ -1,10 +1,13 @@
 :root {
-  --work-in-progess: 'true';
   --color1: #25274D;
   --color2: #464866;
   --color3: #AAABB8;
   --color4: #2E9CCA;
   --color5: #29648A;
+  --border-radius: 4px;
+  --depth: inset 0 -2px 0 rgb(255, 255, 255, 0.1);
+  --height: inset 0 -2px 0 rgb(0, 0, 0, 0.2);
+  --depth-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.1);
 }
 
 html {
@@ -55,34 +58,148 @@ input {
 
 /** General Classess **/
 
-
 /*? Most likely need to seperate code ?*/
 
-.top {
+.header {
   width: 100%;
-  height: fit-content;
+  height: calc(10vh - 20px);
   padding: 10px 5px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .content {
   width: 100%;
-  height: fit-content;
+  height: calc(90vh - 20px);
   padding: 10px 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.form1 {
+  width: 100%;
+  height: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.form1 .input-field{
+  width: 80%;
+  height: 100%;
+  color: #fff;
+  background-color: var(--color2);
+  border-radius: var(--border-radius);
+  box-shadow: var(--depth),
+              var(--depth-shadow);
+}
+
+.form1 .submit-btn {
+  width: 20%;
+  height: 100%;
+  background-color: var(--color4);
+  border-radius: var(--border-radius);
+  color: #fff;
+  box-shadow: var(--height);
+}
+
+.comments-section {
+  width: 100%;
+  padding: 20px 0px;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.form2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form2 > span {
+  color: var(--color4)
+}
+
+.form2 .input-field {
+  width: 50%;
+  height: 2rem;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: var(--color2);
+  border-radius: var(--border-radius);
+  box-shadow: var(--depth),
+              var(--depth-shadow);
+}
+
+.form2 > .input-area {
+  width: 80%;
+  height: 4rem;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: var(--color2);
+  border-radius: var(--border-radius);
+  box-shadow: var(--depth),
+              var(--depth-shadow);
+  resize: none;
+}
+
+.form2 .submit-btn {
+  width: 4rem;
+  height: 2rem;
+  background-color: var(--color4);
+  border-radius: var(--border-radius);
+  color: #fff;
+  box-shadow: var(--height);
+}
+
+.comments {
+  margin-top: 2rem;
+  overflow-x: hide;
+}
+
+.comment {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0px;
+}
+
+.comment .comment-top {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0px;
+  color: var(--color2)
+}
+
+.comment-top .username {
+  color: var(--color4)
+} 
+
+.comment-body > span {
+  word-wrap: break-word;
 }
 
 
-@media only screen and (min-width : 480px) {
-
-}
-
-@media only screen and (min-width : 768px) {
+@media only screen and (min-width : 520px) {
+  .wrapper {
+    width: 480px;
+  }
 }
 
 @media only screen and (min-width : 992px) {
