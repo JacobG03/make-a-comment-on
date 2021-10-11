@@ -5,7 +5,6 @@ from app.other import getVideoId
 from app.models import Comment, Video
 
 
-print(app.static_folder)
 @app.route("/")
 def serve():
     #serves React App
