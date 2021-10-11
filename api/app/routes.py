@@ -1,9 +1,14 @@
 from app import app, db
-from flask import request
+from flask import request, send_from_directory
 import re
 from app.other import getVideoId
 from app.models import Comment, Video
 
+
+@app.route("/")
+def serve():
+    """serves React App"""
+    return send_from_directory(app.static_folder, "index.html")
 
 # Main route
 @app.route('/api', methods=['GET', 'POST'])
