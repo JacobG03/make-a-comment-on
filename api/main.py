@@ -6,6 +6,3 @@ from app.models import Video, Comment
 def make_shell_context():
   return {'db': db, 'Video': Video, 'Comment': Comment}
 
-
-if __name__ == "__main__":
-   app.run()
