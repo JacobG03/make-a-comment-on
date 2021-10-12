@@ -1,20 +1,16 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_socketio import SocketIO
 from flask_cors import CORS
 from config import Config
 import os
 
 
-app = Flask(__name__, 
-            static_folder=os.path.abspath("../build/static"),
-            static_url_path='/')
+app = Flask(__name__, static_folder=os.path.abspath("../build"), static_url_path='')
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-socketio = SocketIO(app, cors_allowed_origins='*')
 CORS(app)
 
 
-from app import routes, sockets
+from app import routes

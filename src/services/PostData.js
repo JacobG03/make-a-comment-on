@@ -1,7 +1,6 @@
 async function postData(url = '', data = {}) {
-  const domain = 'https://make-a-comment-on.herokuapp.com/'
   // Default options are marked with *
-  const response = await fetch(domain + url, {
+  const response = await fetch(`${window.location.origin}/${url}`, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

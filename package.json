@@ -2,6 +2,7 @@
   "name": "make-a-comment-on",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://make-a-comment-on.herokuapp.com/",
   "engines": {
     "node": "12.21.0"
   },
