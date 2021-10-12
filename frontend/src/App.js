@@ -111,6 +111,7 @@ function LinkInput(props) {
     >
       <input  
         className='input-field'
+        placeholder='Enter a YouTube video URL'
         {...register('link')} 
       />
       <input 
