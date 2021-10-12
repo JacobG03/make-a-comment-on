@@ -3,7 +3,6 @@ from flask import request
 import re
 from app.other import getVideoId
 from app.models import Comment, Video
-import os
 
 
 @app.route('/')
