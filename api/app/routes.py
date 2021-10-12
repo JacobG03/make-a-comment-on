@@ -8,11 +8,11 @@ from app.models import Comment, Video
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
-    return app.send_static_file('index.html')
+    return send_from_directory(app.static_folder, 'index.html')
 
 @app.errorhandler(404)   
 def not_found(e):   
-  return app.send_static_file('index.html')
+  return send_from_directory(app.static_folder, 'index.html')
 
 
 # Main route
