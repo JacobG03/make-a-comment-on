@@ -8,11 +8,12 @@ import os
 
 @app.route('/', methods=['GET'])
 def home():
-    return send_from_directory(os.path.abspath("../build/static"), 'index.html')
+    return send_from_directory(os.path.abspath('../build'), 'index.html')
+
 
 @app.errorhandler(404)
 def not_found(e):
-    return send_from_directory(os.path.abspath("../build/static"), 'index.html')
+    return send_from_directory(os.path.abspath('../build'), 'index.html')
 
 
 # Main route
